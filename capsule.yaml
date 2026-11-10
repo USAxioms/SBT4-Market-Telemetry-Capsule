@@ -1,0 +1,60 @@
+```yaml
+capsule:
+  name: "sbt4-reproducibility-capsule"
+  version: "1.0.0"
+  author: "Michael Aaron Russell / FAITH Foundation"
+  patent_reference: "US 19/383,582"
+  
+  claim: |
+    The system (CSL math) turns raw data into SBT4.
+    SBT4 is superior to competing formats across 5 dimensions.
+    The transformation is byte-reproducible.
+
+  transformation:
+    input:  "raw data (JSON, CSV, TXT, HTML)"
+    system: "CSL axioms + MDM-40 + R³ + WAD-18"
+    output: "SBT4 (sealed binary frame)"
+
+  superiority_dimensions:
+    - id: "D1_PRECISION"
+      claim: "SBT4 uses WAD-18 (18 decimals) vs float (11-15 decimals)"
+      proof: "tests/test_superiority.py::test_precision"
+      
+    - id: "D2_INTEGRITY"
+      claim: "SBT4 is sealed with SHA-256 + Ed25519"
+      proof: "tests/test_superiority.py::test_integrity"
+      
+    - id: "D3_TIMESTAMPS"
+      claim: "SBT4 has dual timestamps (exchange + arrival, nanoseconds)"
+      proof: "tests/test_superiority.py::test_timestamps"
+      
+    - id: "D4_INFO_CEILING"
+      claim: "SBT4 declares what analysis is possible"
+      proof: "tests/test_superiority.py::test_info_ceiling"
+      
+    - id: "D5_GROUNDING"
+      claim: "SBT4 is grounded in 6 verifiable axioms"
+      proof: "tests/test_superiority.py::test_grounding"
+
+  inputs:
+    - "inputs/raw_input_01.json"
+    - "inputs/raw_input_02.csv"
+    - "inputs/raw_input_03.txt"
+    - "inputs/raw_input_04.html"
+
+  expected_outputs:
+    - "outputs/expected_01.sbt4"
+    - "outputs/expected_02.sbt4"
+    - "outputs/expected_03.sbt4"
+    - "outputs/expected_04.sbt4"
+
+  verification:
+    command: "python -m unittest tests/ -v"
+    expected_tests: 4
+    expected_passes: 4
+    expected_failures: 0
+
+  environment:
+    python: "3.11"
+    dependencies: []
+    timezone: "UTC"
